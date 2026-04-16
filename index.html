@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hiya AI Setup Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* ── Hiya Connect color system (exact values) ── */
+      --brand-primary:      #6A44B9;   /* brand/primary */
+      --brand-secondary:    #2AA7C9;   /* brand/secondary */
+      --accent-default:     #E2E2EE;   /* accent/default */
+      --accent-medium:      #CCCCCC;   /* accent/medium */
+      --accent-primary:     #ECDCFF;   /* accent/primary — light purple fill */
+      --accent-secondary:   #61BCDD;   /* accent/secondary */
+      --gradient-pink:      #FF3374;   /* gradient/pink */
+      --gradient-blue:      #00C4FD;   /* gradient/blue */
+      --gradient-purple:    #B1609E;   /* gradient/purple */
+      --text-primary:       #303040;   /* text/primary */
+      --text-secondary:     #69707F;   /* text/secondary */
+      --text-tertiary:      #9AA1A9;   /* text/tertiary */
+      --text-disabled:      #B1B9C2;   /* text/disabled */
+      --text-inverse:       #FFFFFF;   /* text/inverse */
+      --text-emphasis:      #5E4F80;   /* text/brand-emphasis */
+      --bg-primary:         #FFFFFF;   /* background/primary */
+      --bg-secondary:       #F5F7F7;   /* background/secondary */
+      --bg-inverse:         #303040;   /* background/inverse */
+      --bg-info:            #E9F9FD;   /* background/info */
+      --bg-warning:         #FFF5CB;   /* background/warning */
+      --bg-error:           #FFE9EA;   /* background/error */
+      --bg-success:         #EBFCE5;   /* background/success */
+
+      /* ── Semantic aliases ── */
+      /* Path A = brand purple */
+      --pa:                 #6A44B9;
+      --pa-light:           #F4EEFF;
+      --pa-mid:             #8B6AD4;
+      --pa-dark:            #3D2570;
+      --pa-text:            #3D2570;
+      /* Path B = brand teal/cyan */
+      --pb:                 #2AA7C9;
+      --pb-light:           #E9F9FD;
+      --pb-mid:             #61BCDD;
+      --pb-dark:            #145F73;
+      --pb-text:            #145F73;
+      /* Shared/neutral */
+      --border:             #E2E2EE;
+      --border-mid:         #CCCCCC;
+      --shadow:             rgba(48, 48, 64, 0.08);
+      --shadow-md:          rgba(48, 48, 64, 0.14);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg-secondary); color: var(--text-primary); font-size: 16px; line-height: 1.7; }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--bg-inverse);
+      padding: 56px 0 52px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .site-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(106,68,185,0.45) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 100%, rgba(42,167,201,0.30) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .header-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent-secondary); margin-bottom: 14px; position: relative;
+    }
+    .header-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      color: var(--text-inverse); line-height: 1.15; margin-bottom: 16px; position: relative;
+    }
+    .header-title em { font-style: italic; color: var(--pa-mid); }
+    .header-subtitle {
+      font-size: 15px; color: rgba(255,255,255,0.62); font-weight: 300;
+      max-width: 520px; margin: 0 auto; position: relative;
+    }
+
+    /* ── LAYOUT ── */
+    .page-wrapper { max-width: 820px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* ── PATH CHOOSER ── */
+    .path-chooser { margin: 48px 0 52px; }
+    .path-chooser-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-tertiary); margin-bottom: 12px; text-align: center;
+    }
+    .path-chooser-heading {
+      font-family: 'DM Serif Display', serif; font-size: 1.3rem;
+      color: var(--text-primary); text-align: center; margin-bottom: 28px;
+    }
+    .path-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .path-card { border-radius: 16px; padding: 28px 24px; }
+    .path-card-a { background: var(--pa-light); border: 2px solid var(--pa); }
+    .path-card-b { background: var(--pb-light); border: 2px solid var(--pb); }
+    .path-pill {
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 14px;
+    }
+    .path-pill-a { background: var(--pa); color: white; }
+    .path-pill-b { background: var(--pb); color: white; }
+    .path-card-icon { font-size: 2rem; display: block; margin-bottom: 10px; }
+    .path-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 8px; }
+    .path-card-a h3 { color: var(--pa); }
+    .path-card-b h3 { color: var(--pb-dark); }
+    .path-card p { font-size: 13.5px; line-height: 1.6; margin-bottom: 14px; }
+    .path-card-a p { color: var(--pa-text); }
+    .path-card-b p { color: var(--pb-text); }
+    .path-card-details { list-style: none; margin-bottom: 20px; }
+    .path-card-details li {
+      font-size: 13px; padding: 5px 0; border-top: 1px solid rgba(0,0,0,0.08);
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .path-card-a .path-card-details li { color: var(--pa-text); }
+    .path-card-b .path-card-details li { color: var(--pb-text); }
+    .path-card-details li::before { content: '→'; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .path-goto {
+      display: inline-block; font-size: 13px; font-weight: 600; text-decoration: none;
+      padding: 8px 18px; border-radius: 20px; transition: opacity 0.2s;
+    }
+    .path-goto:hover { opacity: 0.82; }
+    .path-goto-a { background: var(--pa); color: white; }
+    .path-goto-b { background: var(--pb); color: white; }
+
+    /* ── TOC ── */
+    .toc-block {
+      background: var(--bg-primary); border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 28px 32px; margin-bottom: 52px;
+      box-shadow: 0 2px 16px var(--shadow);
+    }
+    .toc-block h2 {
+      font-family: 'DM Serif Display', serif; font-size: 1.05rem;
+      color: var(--text-primary); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .toc-block h2::before {
+      content: ''; display: inline-block; width: 4px; height: 20px;
+      background: var(--pa); border-radius: 2px;
+    }
+    .toc-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 28px; }
+    .toc-col-label {
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1.5px solid var(--border);
+    }
+    .toc-col-label-a { color: var(--pa); }
+    .toc-col-label-b { color: var(--pb-dark); }
+    .toc-col-label-shared { color: var(--text-secondary); }
+    .toc-list { list-style: none; }
+    .toc-list li a {
+      text-decoration: none; color: var(--text-secondary); font-size: 13.5px; font-weight: 500;
+      display: flex; align-items: center; gap: 8px; padding: 5px 0; transition: color 0.2s;
+    }
+    .toc-list li a:hover { color: var(--pa); }
+    .toc-num {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.05em;
+      padding: 2px 6px; border-radius: 4px; min-width: 24px; text-align: center; flex-shrink: 0;
+    }
+    .toc-num-a { color: var(--pa); background: var(--pa-light); }
+    .toc-num-b { color: var(--pb-dark); background: var(--pb-light); }
+    .toc-num-shared { color: var(--text-secondary); background: var(--bg-secondary); }
+
+    /* ── PATH DIVIDERS ── */
+    .path-section-divider { display: flex; align-items: center; gap: 16px; margin: 72px 0 48px; }
+    .path-section-divider-line { flex: 1; height: 1.5px; background: var(--border); }
+    .path-section-divider-badge {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 8px 20px; border-radius: 20px; white-space: nowrap;
+    }
+    .divider-badge-a { background: var(--pa); color: white; }
+    .divider-badge-b { background: var(--pb); color: white; }
+    .divider-badge-shared { background: var(--bg-inverse); color: var(--text-inverse); }
+
+    /* ── SECTIONS ── */
+    .section { margin-bottom: 64px; }
+    .section-header {
+      display: flex; align-items: flex-start; gap: 18px;
+      margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1.5px solid var(--border);
+    }
+    .section-num {
+      font-family: 'DM Serif Display', serif; font-size: 2.4rem;
+      opacity: 0.3; line-height: 1; min-width: 52px; padding-top: 4px;
+    }
+    .section-num-a { color: var(--pa); }
+    .section-num-b { color: var(--pb); }
+    .section-num-shared { color: var(--text-tertiary); }
+    .section-meta { flex: 1; }
+    .section-label {
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 4px;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--text-primary); line-height: 1.2;
+    }
+    .section-title em.a { font-style: italic; color: var(--pa); }
+    .section-title em.b { font-style: italic; color: var(--pb-dark); }
+    .section-title em.shared { font-style: italic; color: var(--text-emphasis); }
+    .section-badge {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px; align-self: center; white-space: nowrap;
+    }
+    .badge-req-a { background: var(--pa-light); color: var(--pa); }
+    .badge-req-b { background: var(--pb-light); color: var(--pb-dark); }
+    .badge-optional { background: var(--bg-secondary); color: var(--text-secondary); border: 1px solid var(--border); }
+    .badge-hands-on-a { background: var(--pa); color: white; }
+    .badge-hands-on-b { background: var(--pb); color: white; }
+
+    /* ── WHY BOXES ── */
+    .why-box { border-radius: 0 12px 12px 0; padding: 18px 22px; margin-bottom: 28px; }
+    .why-box-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+    .why-box p { font-size: 14px; font-weight: 400; line-height: 1.6; }
+    .why-box-a { background: var(--pa-light); border-left: 3px solid var(--pa); }
+    .why-box-a .why-box-label { color: var(--pa); }
+    .why-box-a p { color: var(--pa-text); }
+    .why-box-b { background: var(--pb-light); border-left: 3px solid var(--pb); }
+    .why-box-b .why-box-label { color: var(--pb-dark); }
+    .why-box-b p { color: var(--pb-text); }
+    .why-box-neutral { background: var(--bg-secondary); border-left: 3px solid var(--border-mid, #CCCCCC); }
+    .why-box-neutral .why-box-label { color: var(--text-secondary); }
+    .why-box-neutral p { color: var(--text-secondary); }
+
+    /* ── STEPS ── */
+    .steps { counter-reset: step; }
+    .step { display: flex; gap: 20px; margin-bottom: 24px; position: relative; }
+    .step:not(:last-child)::before {
+      content: ''; position: absolute; left: 19px; top: 46px;
+      width: 2px; height: calc(100% - 22px); background: var(--border);
+    }
+    .step-dot {
+      counter-increment: step; width: 40px; height: 40px; border-radius: 50%;
+      color: white; font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .step-dot::after { content: counter(step); }
+    .step-dot-a { background: var(--pa); box-shadow: 0 2px 8px rgba(106,68,185,0.30); }
+    .step-dot-b { background: var(--pb); box-shadow: 0 2px 8px rgba(42,167,201,0.28); }
+    .step-body { flex: 1; padding-top: 8px; }
+    .step-body strong { display: block; font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+    .step-body p, .step-body ul { font-size: 14.5px; color: var(--text-secondary); line-height: 1.65; }
+    .step-body ul { padding-left: 18px; margin-top: 6px; }
+    .step-body ul li { margin-bottom: 4px; }
+    .step-body a { color: var(--pa); text-decoration: underline; text-underline-offset: 2px; }
+
+    /* ── CODE ── */
+    code {
+      font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12.5px;
+      background: var(--bg-inverse); color: #E8D9FF; padding: 2px 7px; border-radius: 5px;
+    }
+
+    /* ── CALLOUTS ── */
+    .tip { background: var(--bg-warning); border-left: 3px solid #D4A800; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; }
+    .tip-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6E00; margin-bottom: 5px; }
+    .tip p { font-size: 14px; color: #5C4900; line-height: 1.6; }
+    .warning { background: var(--bg-error); border-left: 3px solid #E0464A; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; }
+    .warning-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C02024; margin-bottom: 5px; }
+    .warning p { font-size: 14px; color: #8A1518; line-height: 1.6; }
+    .info { background: var(--bg-info); border-left: 3px solid var(--pb); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; }
+    .info-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pb-dark); margin-bottom: 5px; }
+    .info p { font-size: 14px; color: var(--pb-text); line-height: 1.6; }
+
+    /* ── PROMPT EXAMPLES ── */
+    .prompt-example { background: var(--bg-primary); border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+    .prompt-tag { font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+    .prompt-tag-a { color: var(--pa); }
+    .prompt-tag-b { color: var(--pb-dark); }
+    .prompt-text {
+      font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px;
+      color: var(--text-primary); background: var(--bg-secondary);
+      border-radius: 8px; padding: 12px 14px; line-height: 1.6; white-space: pre-wrap;
+    }
+    .prompt-note { font-size: 12.5px; color: var(--text-tertiary); margin-top: 8px; font-style: italic; }
+
+    /* ── SUB SECTION ── */
+    .sub-section { background: var(--bg-primary); border: 1.5px solid var(--border); border-radius: 14px; padding: 28px; margin: 28px 0; }
+    .sub-section-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: var(--text-primary); }
+
+    /* ── USE CASE ROWS ── */
+    .use-cases { list-style: none; margin: 16px 0; }
+    .use-cases li {
+      display: flex; align-items: flex-start; gap: 12px; padding: 10px 0;
+      border-bottom: 1px solid var(--border); font-size: 14.5px;
+      color: var(--text-secondary); line-height: 1.55;
+    }
+    .use-cases li:last-child { border-bottom: none; }
+    .use-case-label {
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+    }
+    .label-finance { background: var(--pa-light); color: var(--pa-text); }
+    .label-gtm { background: var(--pb-light); color: var(--pb-text); }
+    .label-both { background: var(--bg-secondary); color: var(--text-secondary); border: 1px solid var(--border); }
+    .label-workflow { background: var(--bg-secondary); color: var(--text-secondary); border: 1px solid var(--border); }
+
+    /* ── CHECKLIST ── */
+    .checklist { list-style: none; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 10px; padding: 8px 0;
+      border-bottom: 1px solid var(--border); font-size: 14.5px; color: var(--text-secondary);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before { content: '○'; color: var(--accent-medium); font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+
+    /* ── SYSTEM PROMPT BUILDER ── */
+    .system-prompt-builder { background: var(--bg-inverse); border-radius: 14px; padding: 24px 28px; margin: 20px 0; }
+    .system-prompt-builder-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pa-mid, #8B6AD4); margin-bottom: 16px; }
+    .system-prompt-block { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.09); }
+    .system-prompt-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .system-prompt-block-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pb-mid, #61BCDD); margin-bottom: 8px; }
+    .system-prompt-text { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12.5px; color: #E8D9FF; line-height: 1.7; white-space: pre-wrap; }
+    .system-prompt-text em { color: rgba(232,217,255,0.38); font-style: italic; }
+
+    /* ── TIPS SECTION ── */
+    .tips-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 20px 0; }
+    .tips-card { background: var(--bg-primary); border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; display: flex; gap: 16px; align-items: flex-start; }
+    .tips-card-icon { font-size: 1.5rem; flex-shrink: 0; padding-top: 2px; }
+    .tips-card-body strong { display: block; font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 5px; }
+    .tips-card-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .tips-card-body .example {
+      font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12.5px;
+      color: var(--pa-text); background: var(--pa-light);
+      border-radius: 8px; padding: 10px 12px; margin-top: 10px; line-height: 1.55; white-space: pre-wrap;
+    }
+
+    /* ── FOOTER ── */
+    .page-footer { border-top: 1.5px solid var(--border); padding-top: 40px; margin-top: 64px; text-align: center; }
+    .page-footer p { font-size: 13px; color: var(--text-tertiary); line-height: 1.8; }
+    .page-footer strong { color: var(--text-secondary); font-weight: 600; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 660px) {
+      .path-cards, .toc-cols { grid-template-columns: 1fr; }
+      .page-wrapper { padding: 0 16px 60px; }
+      .toc-block, .sub-section { padding: 20px 18px; }
+      .system-prompt-builder { padding: 18px; }
+    }
+
+    /* ── ANIMATION ── */
+    .section, .path-chooser, .toc-block {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .section.visible, .path-chooser.visible, .toc-block.visible {
+      opacity: 1; transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ HEADER -->
+<header class="site-header">
+  <p class="header-eyebrow">For Hiya Teams</p>
+  <h1 class="header-title">Your <em>AI Toolkit</em><br>for Everyday Work</h1>
+  <p class="header-subtitle">Move from one-off AI prompts to powerful workflows — or build your own tools from scratch. Both paths start here.</p>
+</header>
+
+<div class="page-wrapper">
+
+  <!-- ═══════════════════════════════════════════════ PATH CHOOSER -->
+  <div class="path-chooser" id="chooser">
+    <p class="path-chooser-label">Start here</p>
+    <h2 class="path-chooser-heading">Which path is right for you?</h2>
+    <div class="path-cards">
+
+      <div class="path-card path-card-a">
+        <span class="path-pill path-pill-a">Path A</span>
+        <span class="path-card-icon">⚡</span>
+        <h3>Power Up Your Workflow</h3>
+        <p>Stop using AI for one-off tasks. Build a system that knows your context, matches your voice, and handles whole categories of work — before you've typed a single word.</p>
+        <ul class="path-card-details">
+          <li>Built on ChatGPT Enterprise — already paid for by Hiya</li>
+          <li>No cost to you, nothing to install</li>
+          <li>Projects with persistent context across every session</li>
+          <li>Ends with a fully configured communication system</li>
+        </ul>
+        <a href="#pa-s1" class="path-goto path-goto-a">Start Path A →</a>
+      </div>
+
+      <div class="path-card path-card-b">
+        <span class="path-pill path-pill-b">Path B</span>
+        <span class="path-card-icon">🔧</span>
+        <h3>Start Building Things</h3>
+        <p>You have an idea for a tool — a document processor, a report generator, a custom workflow — and you want to build it. You don't need to know how to code. Claude builds; you direct.</p>
+        <ul class="path-card-details">
+          <li>Hiya's Anthropic API key — get this first, usage billed to Hiya</li>
+          <li>Cursor (free install) + Cursor Pro ($20/mo, manager approval required)</li>
+          <li>Agent mode: Claude creates and runs files for you</li>
+          <li>Ends with a working document summarizer tool</li>
+        </ul>
+        <a href="#pb-s1" class="path-goto path-goto-b">Start Path B →</a>
+      </div>
+
+    </div>
+    <p style="text-align:center; font-size:13px; color:var(--text-tertiary); margin-top:20px;">Not sure? Start with Path A — it's free, fast to set up, and most people find it transforms how they work within the first week.</p>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ TOC -->
+  <nav class="toc-block">
+    <h2>What's in this guide</h2>
+    <div class="toc-cols">
+      <div>
+        <p class="toc-col-label toc-col-label-a">Path A — Power Up</p>
+        <ul class="toc-list">
+          <li><a href="#pa-s1"><span class="toc-num toc-num-a">A1</span> Create a Project</a></li>
+          <li><a href="#pa-s2"><span class="toc-num toc-num-a">A2</span> Write your System Prompt</a></li>
+          <li><a href="#pa-s3"><span class="toc-num toc-num-a">A3</span> Attach your Docs</a></li>
+          <li><a href="#pa-s4"><span class="toc-num toc-num-a">A4</span> Your First System ✦</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="toc-col-label toc-col-label-b">Path B — Start Building</p>
+        <ul class="toc-list">
+          <li><a href="#pb-s1"><span class="toc-num toc-num-b">B1</span> Hiya API Key</a></li>
+          <li><a href="#pb-s2"><span class="toc-num toc-num-b">B2</span> Install Cursor</a></li>
+          <li><a href="#pb-s3"><span class="toc-num toc-num-b">B3</span> Cursor Pro</a></li>
+          <li><a href="#pb-s4"><span class="toc-num toc-num-b">B4</span> Connect Claude</a></li>
+          <li><a href="#pb-s5"><span class="toc-num toc-num-b">B5</span> Your First Build ✦</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="toc-col-label toc-col-label-shared">For Everyone</p>
+        <ul class="toc-list">
+          <li><a href="#tips"><span class="toc-num toc-num-shared">★</span> Working with AI agents</a></li>
+          <li><a href="#prompts"><span class="toc-num toc-num-shared">★</span> Prompt patterns</a></li>
+          <li><a href="#gemini"><span class="toc-num toc-num-shared">★</span> Gemini in Workspace</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════════════════ PATH A -->
+  <div class="path-section-divider">
+    <div class="path-section-divider-line"></div>
+    <span class="path-section-divider-badge divider-badge-a">Path A — Power Up Your Workflow</span>
+    <div class="path-section-divider-line"></div>
+  </div>
+
+
+  <!-- PATH A · A1 -->
+  <section class="section" id="pa-s1">
+    <div class="section-header">
+      <div class="section-num section-num-a">A1</div>
+      <div class="section-meta">
+        <p class="section-label">Path A · Setup step 1 of 3</p>
+        <h2 class="section-title">Create a <em class="a">Project</em> in ChatGPT</h2>
+      </div>
+      <span class="section-badge badge-req-a">Required</span>
+    </div>
+
+    <div class="why-box why-box-a">
+      <p class="why-box-label">✦ What is a Project — and why does it change everything?</p>
+      <p>Most people use AI like a vending machine: put in a request, get out a response, forget it happened. A Project breaks that pattern. It's a persistent workspace that remembers your role, your communication style, your key audiences, and your reference documents — across every conversation, forever. Instead of re-explaining yourself every time, you just start working. The AI already knows who you are.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-dot step-dot-a"></div>
+        <div class="step-body">
+          <strong>Open ChatGPT and find Projects</strong>
+          <p>Go to <a href="https://chatgpt.com" target="_blank">chatgpt.com</a> and log in with your Hiya account. In the left sidebar, look for <strong>Projects</strong> and click <strong>"New Project."</strong> If you don't see it, make sure you're logged into your work account — Hiya's Enterprise plan unlocks Projects for everyone.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot step-dot-a"></div>
+        <div class="step-body">
+          <strong>Name your Project</strong>
+          <p>Give it a name that reflects its purpose — <strong>Work Communications</strong>, <strong>Finance Comms</strong>, or <strong>GTM Messaging</strong> all work. Start with one that covers your most common needs; you can create more later.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot step-dot-a"></div>
+        <div class="step-body">
+          <strong>Find the Custom Instructions field</strong>
+          <p>Inside your Project, look for a <strong>Custom Instructions</strong> or <strong>Project Instructions</strong> field. Leave it blank for now — you'll fill it in during the next section.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <p class="tip-label">✦ Why ChatGPT for this path?</p>
+      <p>Hiya's Enterprise plan is already paid for and gives you everything Path A needs — Projects, persistent context, file uploads, data analysis, and privacy protections. If you find you prefer Claude's writing style after using both, Claude.ai Pro ($20/mo) supports the same Project workflow and is worth exploring as an optional upgrade.</p>
+    </div>
+  </section>
+
+
+  <!-- PATH A · A2 -->
+  <section class="section" id="pa-s2">
+    <div class="section-header">
+      <div class="section-num section-num-a">A2</div>
+      <div class="section-meta">
+        <p class="section-label">Path A · Setup step 2 of 3</p>
+        <h2 class="section-title">Write your <em class="a">System Prompt</em></h2>
+      </div>
+      <span class="section-badge badge-req-a">Required</span>
+    </div>
+
+    <div class="why-box why-box-a">
+      <p class="why-box-label">✦ This is the actual build</p>
+      <p>A system prompt is the standing brief you give the AI before every conversation — your role, your context, your communication style, your expectations. It transforms a generic chatbot into something that feels like a knowledgeable colleague who already knows your work. This is what most people never set up — and the reason they still feel like they're getting generic output.</p>
+    </div>
+
+    <p style="font-size:14.5px; color:var(--text-secondary); margin-bottom:20px; line-height:1.65;">Copy the template below into your Project's Custom Instructions field and fill in the italicized parts. The more specific you are, the better it performs.</p>
+
+    <div class="system-prompt-builder">
+      <p class="system-prompt-builder-label">📋 System prompt template — copy and customize</p>
+
+      <div class="system-prompt-block">
+        <p class="system-prompt-block-label">Your role and context</p>
+        <div class="system-prompt-text">You are a professional communications assistant for <em>[your name]</em>, who works as a <em>[your role, e.g. Senior Finance Manager / GTM Lead / Revenue Operations Manager]</em> at Hiya — a B2B SaaS company that sells call identification and branding solutions to businesses.
+
+My team is <em>[your team]</em>. My work primarily involves <em>[2-3 sentences about what you actually do day-to-day — the more specific, the better]</em>.</div>
+      </div>
+
+      <div class="system-prompt-block">
+        <p class="system-prompt-block-label">Your communication style</p>
+        <div class="system-prompt-text">When writing on my behalf, match this style:
+- Tone: <em>[e.g. direct and concise / warm but professional / data-driven and precise]</em>
+- Length: <em>[e.g. short — never more than 3 paragraphs unless the situation warrants more]</em>
+- Voice: <em>[e.g. I avoid buzzwords / I lead with the ask / I use bullets for 3+ items]</em></div>
+      </div>
+
+      <div class="system-prompt-block">
+        <p class="system-prompt-block-label">Your key audiences</p>
+        <div class="system-prompt-text">My main audiences are:
+- <em>[e.g. Executive leadership — bottom line upfront, minimal context-setting]</em>
+- <em>[e.g. Cross-functional partners in Engineering and Product — prefer specifics]</em>
+- <em>[e.g. External vendors and customers — professional, relationship-aware]</em></div>
+      </div>
+
+      <div class="system-prompt-block">
+        <p class="system-prompt-block-label">Standing instructions</p>
+        <div class="system-prompt-text">When I ask you to draft something:
+1. Ask clarifying questions first if the request is ambiguous — don't assume
+2. Offer a short and long version when the situation could go either way
+3. Push back if my ask seems unclear or if there's a better approach
+4. Never pad — if it can be said in fewer words, use fewer words
+
+When I share a document for review or summarization:
+1. Lead with a 2-3 sentence TL;DR
+2. Follow with key decisions, action items, and open questions
+3. Flag anything that looks like it needs my attention or response</div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <p class="tip-label">✦ Your system prompt is a living document</p>
+      <p>Your first version won't be perfect — that's expected. Every time the output misses the mark, update the instructions to address it. After a few weeks of real use, you'll have something highly tuned. You can also ask the AI to help you improve the prompt itself: paste it in and say <em>"What's missing from this that would help you write better on my behalf?"</em></p>
+    </div>
+  </section>
+
+
+  <!-- PATH A · A3 -->
+  <section class="section" id="pa-s3">
+    <div class="section-header">
+      <div class="section-num section-num-a">A3</div>
+      <div class="section-meta">
+        <p class="section-label">Path A · Setup step 3 of 3</p>
+        <h2 class="section-title">Attach your <em class="a">Reference Docs</em></h2>
+      </div>
+      <span class="section-badge badge-optional">Optional but powerful</span>
+    </div>
+
+    <div class="why-box why-box-a">
+      <p class="why-box-label">✦ Give the AI your source material</p>
+      <p>Files attached to a Project are available in every conversation within it — the AI can reference them without you re-uploading each time. A well-stocked Project is like giving a new team member a thorough onboarding packet: they stop asking basic questions and start contributing from day one.</p>
+    </div>
+
+    <p style="font-size:14.5px; color:var(--text-secondary); margin-bottom:16px; line-height:1.65;">Inside your Project, look for an option to add files or paste content. Good candidates:</p>
+
+    <ul class="use-cases">
+      <li><span class="use-case-label label-both">All teams</span><span>Your team's standard communication templates or preferred formats — so output is always structured the way your team expects.</span></li>
+      <li><span class="use-case-label label-finance">Finance</span><span>A glossary of internal terms, account names, or reporting definitions — so the AI interprets your numbers correctly.</span></li>
+      <li><span class="use-case-label label-gtm">GTM</span><span>Your messaging guide, ICP description, or competitive positioning doc — so the AI writes with accurate product and market context.</span></li>
+      <li><span class="use-case-label label-both">All teams</span><span>A short "about the team" note: key stakeholders, how decisions get made, what's currently being prioritized. The context you'd give a new hire on day one.</span></li>
+    </ul>
+
+    <div class="warning">
+      <p class="warning-label">⚠ Watch what you upload</p>
+      <p>Don't attach documents containing personal employee data, customer PII, or anything marked confidential beyond your access level. When in doubt, check with your manager first.</p>
+    </div>
+  </section>
+
+
+  <!-- PATH A · A4 — YOUR FIRST SYSTEM -->
+  <section class="section" id="pa-s4">
+    <div class="section-header">
+      <div class="section-num section-num-a">A4</div>
+      <div class="section-meta">
+        <p class="section-label">Path A · Your first system</p>
+        <h2 class="section-title">Build a <em class="a">Communication Workflow</em> ✦</h2>
+      </div>
+      <span class="section-badge badge-hands-on-a">Hands-on</span>
+    </div>
+
+    <div class="why-box why-box-a">
+      <p class="why-box-label">✦ What you're building</p>
+      <p>A configured AI system that handles the full arc of a communication challenge — not just "rewrite this email," but "understand what I'm trying to achieve, reason through the best approach, and help me plan and execute." You'll use your Project as the foundation and build the workflow through a single conversation.</p>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title"><span>🎯</span> The exercise: A message you've been putting off</h3>
+      <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px; line-height:1.6;">Think of a real communication task you've been avoiding — a status update that needs careful framing, a difficult ask, a message that lands differently for different audiences. Open a new conversation inside your Project and paste this prompt:</p>
+      <div class="prompt-example">
+        <span class="prompt-tag prompt-tag-a">Your first workflow prompt</span>
+        <div class="prompt-text">I need help with a communication challenge. Here's the situation:
+
+[Describe it in 2-4 sentences — what's happening, what's at stake, what you need people to do]
+
+My audience: [Who are you writing to? What do they care about? What's your relationship?]
+
+What I want to achieve: [What does success look like? A decision made? Trust restored?]
+
+What I'm worried about: [What could go wrong? What tone would be a mistake?]
+
+Don't write anything yet. First, ask me any clarifying questions you need. Then suggest an approach — the right format, the right framing, and what to lead with.</div>
+        <p class="prompt-note">The last line is the key move. Asking the AI to think before it writes produces dramatically better output than going straight to a draft.</p>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title"><span>🔄</span> The workflow pattern you just learned</h3>
+      <ul class="checklist">
+        <li><strong>Give the full situation, not just the task.</strong> "Write an email to Marcus" is weak. "Write an email to Marcus, who approved this six months ago and needs to agree to a timeline extension" produces something genuinely useful.</li>
+        <li><strong>Ask for a plan before a draft.</strong> "Don't write yet — suggest an approach first" forces a reasoning step before generation begins. It consistently produces better output.</li>
+        <li><strong>Iterate in the same conversation.</strong> Don't start over when a draft is close. Say "good, but the second paragraph is too apologetic — make it more confident" and refine in place.</li>
+        <li><strong>Ask for variants.</strong> "Give me a shorter version" or "give me a version for someone likely to push back" both work. You can get 2-3 strategic versions on request.</li>
+        <li><strong>Let it flag what you're missing.</strong> Before sending anything high-stakes, ask: "What am I not thinking about? What's the strongest argument against this approach?"</li>
+      </ul>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title"><span>🚀</span> What to build next</h3>
+      <ul class="use-cases">
+        <li><span class="use-case-label label-workflow">Workflow</span><span><strong>Weekly update system</strong> — a standing prompt that takes your week's notes and produces a structured, audience-calibrated status update every Friday.</span></li>
+        <li><span class="use-case-label label-workflow">Workflow</span><span><strong>Meeting prep briefer</strong> — paste in attendee names and an agenda; get talking points, likely questions, and what to watch out for.</span></li>
+        <li><span class="use-case-label label-gtm">GTM</span><span><strong>Outbound personalization system</strong> — a prompt that takes a prospect name, company, and a recent news item and produces a tailored outreach opening.</span></li>
+        <li><span class="use-case-label label-finance">Finance</span><span><strong>Variance narrative generator</strong> — paste in budget vs. actuals; get a plain-English explanation written for a non-finance executive audience.</span></li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════ PATH B -->
+  <div class="path-section-divider">
+    <div class="path-section-divider-line"></div>
+    <span class="path-section-divider-badge divider-badge-b">Path B — Start Building Things</span>
+    <div class="path-section-divider-line"></div>
+  </div>
+
+
+  <!-- PATH B · B1 -->
+  <section class="section" id="pb-s1">
+    <div class="section-header">
+      <div class="section-num section-num-b">B1</div>
+      <div class="section-meta">
+        <p class="section-label">Path B · Setup step 1 of 4</p>
+        <h2 class="section-title">Get your <em class="b">Hiya API Key</em></h2>
+      </div>
+      <span class="section-badge badge-req-b">Required</span>
+    </div>
+
+    <div class="why-box why-box-b">
+      <p class="why-box-label">✦ What is an API key?</p>
+      <p>An API key is a personal access badge that tells Claude "this person is allowed to use Hiya's account." Hiya has a company account with Anthropic (the makers of Claude), and you'll generate your own key from within that shared account. Your Claude usage is billed to Hiya — you don't pay for anything extra.</p>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title"><span>🔑</span> Get your personal key from the Claude Console</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-dot step-dot-b"></div>
+          <div class="step-body">
+            <strong>Go to the Anthropic Claude Console</strong>
+            <p>Open your browser and visit <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot step-dot-b"></div>
+          <div class="step-body">
+            <strong>Sign in through Hiya's Organization</strong>
+            <p>Click <strong>"Log in"</strong> and use your <strong>@hiya.com</strong> Google account. You should land inside Hiya's organization workspace — you'll see the Hiya name in the top-left corner.</p>
+            <div class="tip">
+              <p class="tip-label">✦ Don't see Hiya's organization?</p>
+              <p>You haven't been added to the org yet. Ask whoever manages Hiya's AI tools to add your <strong>@hiya.com</strong> email, then try logging in again.</p>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot step-dot-b"></div>
+          <div class="step-body">
+            <strong>Create a new API key</strong>
+            <p>In the left sidebar, click <strong>"API Keys"</strong>, then <strong>"Create Key."</strong> Name it something recognizable like <em>your-name-cursor</em> (e.g., <em>alex-cursor</em>). Click <strong>Create API Key.</strong></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot step-dot-b"></div>
+          <div class="step-body">
+            <strong>Copy your key immediately</strong>
+            <p>Your key appears on screen — it starts with <code>sk-ant-api03-</code>. <strong>Copy it now</strong> and save it somewhere private like a 1Password note or Apple Notes. This is the only time the full key is shown.</p>
+            <div class="warning">
+              <p class="warning-label">⚠ Keep it private</p>
+              <p>Never paste your key into Slack, email, or a shared doc. It's linked to Hiya's billing account. If you accidentally share it, delete it from the Console immediately and create a new one.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PATH B · B2 -->
+  <section class="section" id="pb-s2">
+    <div class="section-header">
+      <div class="section-num section-num-b">B2</div>
+      <div class="section-meta">
+        <p class="section-label">Path B · Setup step 2 of 4</p>
+        <h2 class="section-title">Install <em class="b">Cursor</em></h2>
+      </div>
+      <span class="section-badge badge-req-b">Required</span>
+    </div>
+
+    <div class="why-box why-box-b">
+      <p class="why-box-label">✦ Why Cursor?</p>
+      <p>Cursor is the workspace you'll use to talk to Claude and build things. Think of it as a place where you describe what you want — in plain English — and Claude builds it for you. You give the directions; Claude writes the code, creates the files, and runs everything. No programming knowledge required.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-dot step-dot-b"></div>
+        <div class="step-body">
+          <strong>Download Cursor</strong>
+          <p>Visit <a href="https://cursor.com/download" target="_blank">cursor.com/download</a> and download the macOS version. Open the <code>.dmg</code> file and drag Cursor into your Applications folder.</p>
+          <div class="tip">
+            <p class="tip-label">✦ macOS security warning?</p>
+            <p>If macOS flags the app, go to <strong>System Settings → Privacy &amp; Security</strong> and click <strong>"Open Anyway."</strong> Cursor is a widely-used, SOC 2 certified application.</p>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot step-dot-b"></div>
+        <div class="step-body">
+          <strong>Create a free Cursor account</strong>
+          <p>When Cursor launches, sign up with your <strong>@hiya.com</strong> email. Verify when the confirmation arrives. You'll upgrade to Pro in the next step.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot step-dot-b"></div>
+        <div class="step-body">
+          <strong>Complete the setup wizard</strong>
+          <p>Cursor asks a few quick questions — color theme, keyboard shortcuts, experience level. There are no wrong answers. Click through the defaults; everything can be changed later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PATH B · B3 -->
+  <section class="section" id="pb-s3">
+    <div class="section-header">
+      <div class="section-num section-num-b">B3</div>
+      <div class="section-meta">
+        <p class="section-label">Path B · Setup step 3 of 4</p>
+        <h2 class="section-title">Subscribe to <em class="b">Cursor Pro</em></h2>
+      </div>
+      <span class="section-badge badge-req-b">Required</span>
+    </div>
+
+    <div class="why-box why-box-b">
+      <p class="why-box-label">✦ Why Pro is required for building</p>
+      <p>The feature that lets Claude actually <em>build things</em> — creating files, running code, making changes autonomously — is called <strong>Agent mode</strong>. It only runs on Cursor Pro. Without it, you're limited to basic chat. Pro is $20/month and is not covered by Hiya by default. Reimbursement is possible but requires your manager's approval — check with them before subscribing.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-dot step-dot-b"></div>
+        <div class="step-body">
+          <strong>Check with your manager first</strong>
+          <p>Cursor Pro ($20/month or $16/month billed annually at $192/year) is not covered by Hiya by default. You can request reimbursement, but it requires your manager's explicit approval. Confirm before adding your payment details.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot step-dot-b"></div>
+        <div class="step-body">
+          <strong>Subscribe to Pro</strong>
+          <p>Visit <a href="https://cursor.com/pricing" target="_blank">cursor.com/pricing</a> or go to <strong>Settings → Account</strong> inside Cursor. Choose <strong>Pro</strong> and complete checkout. Pro activates immediately. If Hiya is already on a Cursor Teams plan, ask your manager for an invite instead.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PATH B · B4 -->
+  <section class="section" id="pb-s4">
+    <div class="section-header">
+      <div class="section-num section-num-b">B4</div>
+      <div class="section-meta">
+        <p class="section-label">Path B · Setup step 4 of 4</p>
+        <h2 class="section-title">Connect <em class="b">Claude</em> in Cursor</h2>
+      </div>
+      <span class="section-badge badge-req-b">Required</span>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-dot step-dot-b"></div>
+        <div class="step-body">
+          <strong>Open Cursor Settings</strong>
+          <p>Press <code>Cmd + ,</code> or use the menu: <strong>Cursor → Settings → Cursor Settings.</strong></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot step-dot-b"></div>
+        <div class="step-body">
+          <strong>Go to Models and paste your key</strong>
+          <p>Click <strong>"Models"</strong> in the left sidebar. Scroll to the <strong>Anthropic</strong> section, paste your key into the <strong>"Anthropic API Key"</strong> field, and press <strong>Enter.</strong> Cursor will confirm it's working.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot step-dot-b"></div>
+        <div class="step-body">
+          <strong>Open the chat panel and select Claude</strong>
+          <p>Press <code>Cmd + L</code> to open the AI chat panel. Click the model dropdown at the top and choose <strong>claude-sonnet-4-5</strong> (or the latest Claude Sonnet available).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot step-dot-b"></div>
+        <div class="step-body">
+          <strong>Test it</strong>
+          <p>Type: <em>"Hi — I work in operations at a SaaS company. I want to build a simple tool to help with my work. What should we start with?"</em> If Claude responds, you're ready to build.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PATH B · B5 — YOUR FIRST BUILD -->
+  <section class="section" id="pb-s5">
+    <div class="section-header">
+      <div class="section-num section-num-b">B5</div>
+      <div class="section-meta">
+        <p class="section-label">Path B · Your first build</p>
+        <h2 class="section-title">Build a <em class="b">Document Summarizer</em> ✦</h2>
+      </div>
+      <span class="section-badge badge-hands-on-b">Hands-on</span>
+    </div>
+
+    <div class="why-box why-box-b">
+      <p class="why-box-label">✦ What you're building</p>
+      <p>A tool you can drop any document into — a contract, a meeting transcript, a long email chain — and get back a structured summary with key decisions, action items, and anything flagged for your attention. About 30 minutes. Once you've done it once, you know how to build almost anything else.</p>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title"><span>📁</span> Step 1: Create a project folder</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-dot step-dot-b"></div>
+          <div class="step-body">
+            <strong>Create a folder on your Desktop</strong>
+            <p>Make a new folder — your Desktop works fine. Name it <strong>doc-summarizer</strong> or whatever you like.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot step-dot-b"></div>
+          <div class="step-body">
+            <strong>Open it in Cursor</strong>
+            <p>Go to <strong>File → Open Folder</strong> and select it. Cursor's left sidebar will show the empty folder. This is your workspace.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title"><span>🤖</span> Step 2: Tell Claude what to build</h3>
+      <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px; line-height:1.6;">Press <code>Cmd + L</code> to open the chat panel. Make sure you're in <strong>Agent mode</strong> — look for the mode selector at the top and switch to <strong>Agent</strong> if needed. Then paste this prompt:</p>
+      <div class="prompt-example">
+        <span class="prompt-tag prompt-tag-b">Your first prompt to Claude</span>
+        <div class="prompt-text">I want to build a simple document summarizer tool. Here's what it should do:
+
+1. I paste in text (or point it at a file I've saved)
+2. It produces a structured summary with:
+   - A 2-3 sentence overview
+   - Key decisions or conclusions
+   - Action items and who owns them (if mentioned)
+   - Any dates or deadlines
+   - Anything I should flag for follow-up
+
+Please build this as a simple tool I can run from this folder. Make it easy to use — I'm not a developer, so walk me through each step as you go.</div>
+        <p class="prompt-note">Don't worry about understanding what Claude creates. Your job is to describe what you want — Claude handles the rest.</p>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title"><span>▶️</span> Step 3: Run it and iterate</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-dot step-dot-b"></div>
+          <div class="step-body">
+            <strong>Let Claude build</strong>
+            <p>Watch Agent mode work — Claude creates files in your folder, writes the code, and explains each step. Files appear in the left sidebar as it goes. Usually takes 1–2 minutes.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot step-dot-b"></div>
+          <div class="step-body">
+            <strong>Follow Claude's run instructions</strong>
+            <p>Claude will tell you exactly how to run the tool. If any step is confusing, just ask: <em>"Can you explain that more simply?"</em></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot step-dot-b"></div>
+          <div class="step-body">
+            <strong>Test it with real content and refine</strong>
+            <p>Paste in something from your actual work. If anything's off, tell Claude directly: <em>"The action items section isn't picking up names — can you fix that?"</em> Keep iterating until it works the way you want.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title"><span>🚀</span> What to build next</h3>
+      <ul class="use-cases">
+        <li><span class="use-case-label label-finance">Finance</span><span><strong>Budget variance explainer</strong> — paste in a spreadsheet export and get a plain-English narrative explaining the variances, ready for a leadership update.</span></li>
+        <li><span class="use-case-label label-gtm">GTM</span><span><strong>Email sequence generator</strong> — takes a target account, a product use case, and a contact name and drafts a 3-email outbound sequence.</span></li>
+        <li><span class="use-case-label label-both">Both</span><span><strong>Meeting prep briefer</strong> — paste in a calendar event, attendee names, and context; get talking points and likely questions.</span></li>
+        <li><span class="use-case-label label-both">Both</span><span><strong>Weekly update formatter</strong> — paste in your week's notes and get a structured status update in your team's format.</span></li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════ FOR EVERYONE -->
+  <div class="path-section-divider">
+    <div class="path-section-divider-line"></div>
+    <span class="path-section-divider-badge divider-badge-shared">For Everyone</span>
+    <div class="path-section-divider-line"></div>
+  </div>
+
+
+  <!-- SHARED · TIPS — WORKING WITH AI AGENTS -->
+  <section class="section" id="tips">
+    <div class="section-header">
+      <div class="section-num section-num-shared">★</div>
+      <div class="section-meta">
+        <p class="section-label">The moves most people don't know</p>
+        <h2 class="section-title">Working with <em class="shared">AI agents</em></h2>
+      </div>
+      <span class="section-badge badge-optional">Reference</span>
+    </div>
+
+    <div class="why-box why-box-neutral">
+      <p class="why-box-label">✦ These tips apply to every tool in this guide</p>
+      <p>The difference between someone who feels like AI is transforming their work and someone who still feels behind often comes down to a handful of behaviors — not tools. These are the moves worth internalizing.</p>
+    </div>
+
+    <div class="tips-grid">
+
+      <div class="tips-card">
+        <div class="tips-card-icon">🔄</div>
+        <div class="tips-card-body">
+          <strong>When an agent tells you to do something — ask it to do it instead</strong>
+          <p>If an AI agent says "Go to Settings and change X" or "Open Terminal and run Y," your first instinct should be to hand it back. Most of the time, the agent can do it for you — or at least walk you through it interactively.</p>
+          <div class="example">Instead of following instructions manually, try:
+"Can you just do that for me?"
+— or —
+"How do I do that? Walk me through it step by step."</div>
+        </div>
+      </div>
+
+      <div class="tips-card">
+        <div class="tips-card-icon">🤝</div>
+        <div class="tips-card-body">
+          <strong>Use one AI to help you use another</strong>
+          <p>If Cursor says it can't do something, or you get a confusing error, don't stop there. Copy the relevant part of the conversation — or take a screenshot — and paste it into ChatGPT or Claude.ai and ask: "How do I make Cursor do what I'm asking?" AI tools are surprisingly good at helping you navigate other AI tools.</p>
+          <div class="example">Copy an error or stalled conversation from Cursor, then in ChatGPT:
+"Cursor is giving me this response. How do I get it to [what you want]?"</div>
+        </div>
+      </div>
+
+      <div class="tips-card">
+        <div class="tips-card-icon">📸</div>
+        <div class="tips-card-body">
+          <strong>Screenshots are context</strong>
+          <p>You don't have to describe what you're looking at — just take a screenshot and paste it in. An error message, a confusing UI, a spreadsheet, a partially-built tool — pasting the image directly into the chat gives the AI far more context than a description would. This works in ChatGPT, Claude.ai, and Cursor.</p>
+          <div class="example">Take a screenshot of anything confusing, paste it into the chat, and ask:
+"What am I looking at here, and what should I do next?"</div>
+        </div>
+      </div>
+
+      <div class="tips-card">
+        <div class="tips-card-icon">📝</div>
+        <div class="tips-card-body">
+          <strong>Write long prompts in Notes first</strong>
+          <p>If you're crafting a detailed prompt or a long piece of context, write it in Apple Notes, Notion, or any text editor before pasting it into the AI chat. Browser windows close, tabs refresh, and sessions time out. Losing a carefully written prompt is frustrating — and avoidable.</p>
+          <div class="example">Draft anything longer than a few sentences in Notes first.
+Paste it in when you're ready. Takes 10 seconds, saves real pain.</div>
+        </div>
+      </div>
+
+      <div class="tips-card">
+        <div class="tips-card-icon">🎛️</div>
+        <div class="tips-card-body">
+          <strong>You can teach agents how you want them to behave</strong>
+          <p>As you use these tools more, you'll notice patterns in what you wish they'd do differently — "always ask before deleting anything," "explain what you're about to do before doing it," "never use bullet points." You can add these as standing rules to your system prompt or Project Instructions. Don't worry about getting this right now. It's something you discover over time, and the tools make it easy to add rules whenever something bothers you.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- SHARED · PROMPT PATTERNS -->
+  <section class="section" id="prompts">
+    <div class="section-header">
+      <div class="section-num section-num-shared">★</div>
+      <div class="section-meta">
+        <p class="section-label">Regardless of path</p>
+        <h2 class="section-title">Prompt patterns that <em class="shared">actually work</em></h2>
+      </div>
+      <span class="section-badge badge-optional">Reference</span>
+    </div>
+
+    <div class="why-box why-box-neutral">
+      <p class="why-box-label">✦ The gap between generic and great output is almost always the prompt</p>
+      <p>Most people who feel like AI isn't delivering aren't using the wrong tool — they're giving it insufficient context. These patterns work across ChatGPT, Claude, and Gemini regardless of which path you're on.</p>
+    </div>
+
+    <div class="prompt-example">
+      <span class="prompt-tag prompt-tag-a">Summarize and extract</span>
+      <div class="prompt-text">I'm going to paste in a [contract / email thread / document]. Please summarize it in 3-5 bullet points, then separately call out anything that needs a decision or action from me.
+
+[paste your content here]</div>
+      <p class="prompt-note">Works for vendor agreements, board updates, long Slack threads exported to text.</p>
+    </div>
+
+    <div class="prompt-example">
+      <span class="prompt-tag prompt-tag-a">Rewrite for a different audience</span>
+      <div class="prompt-text">Rewrite the following for [a non-finance executive / a new sales rep / an external customer]. Keep it under [150 words]. Prioritize clarity over completeness.
+
+[paste your draft here]</div>
+      <p class="prompt-note">Use this when you need to translate internal analysis into something shareable externally or cross-functionally.</p>
+    </div>
+
+    <div class="prompt-example">
+      <span class="prompt-tag prompt-tag-a">Draft from scratch</span>
+      <div class="prompt-text">Write a [type of document] for [audience / purpose].
+
+Context: [one or two sentences about the situation]
+Tone: [professional and direct / warm and conversational / concise]
+Length: [a few sentences / one page / bullet points only]</div>
+      <p class="prompt-note">The "tone" and "length" lines are the ones people skip — and they're what separate useful output from generic output.</p>
+    </div>
+
+    <div class="prompt-example">
+      <span class="prompt-tag prompt-tag-a">Think it through with me</span>
+      <div class="prompt-text">I'm trying to decide [describe the decision or problem].
+
+Context: [relevant background]
+What I'm leaning toward: [your current thinking]
+
+What am I missing? What's the strongest argument against my current position?</div>
+      <p class="prompt-note">Use this before a high-stakes meeting or when you're not confident you've thought something all the way through.</p>
+    </div>
+  </section>
+
+
+  <!-- SHARED · GEMINI -->
+  <section class="section" id="gemini">
+    <div class="section-header">
+      <div class="section-num section-num-shared">★</div>
+      <div class="section-meta">
+        <p class="section-label">Already in your tools</p>
+        <h2 class="section-title"><em class="shared">Gemini</em> in Google Workspace</h2>
+      </div>
+      <span class="section-badge badge-optional">No setup needed</span>
+    </div>
+
+    <div class="why-box why-box-neutral">
+      <p class="why-box-label">✦ The AI that's already in the tools you use every day</p>
+      <p>Gemini is built into Gmail, Docs, Sheets, and Drive. Look for the <strong>✦ Gemini</strong> button or sparkle icon in any Google app. No extra setup — and it's useful precisely because it doesn't require switching tabs.</p>
+    </div>
+
+    <ul class="use-cases">
+      <li>
+        <span class="use-case-label label-gtm">Gmail</span>
+        <span><strong>"Help me write"</strong> drafts a reply based on the email thread. <strong>"Summarize this email"</strong> gives you a TLDR on a long chain. Both work directly inside the email view.</span>
+      </li>
+      <li>
+        <span class="use-case-label label-gtm">Google Docs</span>
+        <span>Click the Gemini icon in the sidebar to ask questions about a document, rewrite sections, or generate new content in place — without leaving the doc.</span>
+      </li>
+      <li>
+        <span class="use-case-label label-gtm">Google Sheets</span>
+        <span>Describe what you want in plain English — <em>"Calculate the percentage change between column B and column C"</em> — and Gemini suggests the formula. No spreadsheet expertise needed.</span>
+      </li>
+      <li>
+        <span class="use-case-label label-gtm">Google Drive</span>
+        <span>Search across all your files with natural language — <em>"Find the Q3 board deck"</em> or <em>"Show me docs about enterprise pricing"</em> — without needing to recall exact file names.</span>
+      </li>
+    </ul>
+
+    <div class="tip">
+      <p class="tip-label">✦ Use all three tools situationally</p>
+      <p><strong>ChatGPT</strong> (Path A) for persistent workflow, Projects, and data analysis. <strong>Claude</strong> (Path B) for building tools and nuanced long-form writing. <strong>Gemini</strong> for in-context help inside Google without switching apps. Knowing when to reach for each one is the actual skill.</p>
+    </div>
+  </section>
+
+
+  <footer class="page-footer">
+    <p>Created by <strong>Christopher Thomas</strong> and Claude · Hiya · Last updated April 2026</p>
+    <p style="margin-top:8px; font-size:12px;">Questions about setup? Ask in the AI knowledge-sharing channel or reach out to whoever manages Hiya's AI tools.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Scroll-in animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.06 });
+
+  document.querySelectorAll('.section, .path-chooser, .toc-block').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Intercept internal anchor links and use scrollIntoView instead of
+  // native href navigation — fixes published artifact / iframe environments
+  // where #hash links open a new tab instead of jumping within the page.
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+    const id = link.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
+
+</body>
+</html>

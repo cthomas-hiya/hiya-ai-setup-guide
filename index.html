@@ -391,11 +391,11 @@
         <span class="path-pill path-pill-b">Path B</span>
         <span class="path-card-icon">🔧</span>
         <h3>Start Building Things</h3>
-        <p>You have an idea for a tool — a document processor, a report generator, a custom workflow — and you want to build it. You don't need to know how to code. Claude builds; you direct.</p>
+        <p>You have an idea for a tool — a document processor, a report generator, a custom workflow — and you want to build it. You don't need to know how to code. Use Claude for internal data, Codex for customer data — both run inside the same tool.</p>
         <ul class="path-card-details">
-          <li>Hiya's Anthropic API key — get this first, usage billed to Hiya</li>
+          <li>Two API keys: Anthropic (Claude) for internal data, OpenAI (Codex) for customer data</li>
           <li>Cursor (free install) + Cursor Pro ($20/mo, manager approval required)</li>
-          <li>Agent mode: Claude creates and runs files for you</li>
+          <li>Switch models with a dropdown — same workflow, different engine</li>
           <li>Ends with a working document summarizer tool</li>
         </ul>
         <a href="#pb-s1" class="path-goto path-goto-b">Start Path B →</a>
@@ -420,12 +420,12 @@
         </ul>
       </div>
       <div>
-        <p class="toc-col-label toc-col-label-b">Path B — Start Building</p>
+        <p class="toc-col-label toc-col-label-b">Path B — Start Building (Claude + Codex)</p>
         <ul class="toc-list">
-          <li><a href="#pb-s1"><span class="toc-num toc-num-b">B1</span> Hiya API Key</a></li>
+          <li><a href="#pb-s1"><span class="toc-num toc-num-b">B1</span> Get your API Keys</a></li>
           <li><a href="#pb-s2"><span class="toc-num toc-num-b">B2</span> Install Cursor</a></li>
           <li><a href="#pb-s3"><span class="toc-num toc-num-b">B3</span> Cursor Pro</a></li>
-          <li><a href="#pb-s4"><span class="toc-num toc-num-b">B4</span> Connect Claude</a></li>
+          <li><a href="#pb-s4"><span class="toc-num toc-num-b">B4</span> Connect your Models</a></li>
           <li><a href="#pb-s5"><span class="toc-num toc-num-b">B5</span> Your First Build ✦</a></li>
         </ul>
       </div>
@@ -667,34 +667,33 @@ Don't write anything yet. First, ask me any clarifying questions you need. Then 
       <div class="section-num section-num-b">B1</div>
       <div class="section-meta">
         <p class="section-label">Path B · Setup step 1 of 4</p>
-        <h2 class="section-title">Get your <em class="b">Hiya API Key</em></h2>
+        <h2 class="section-title">Get your <em class="b">API Keys</em></h2>
       </div>
       <span class="section-badge badge-req-b">Required</span>
     </div>
 
     <div class="why-box why-box-b">
-      <p class="why-box-label">✦ What is an API key?</p>
-      <p>An API key is a personal access badge that tells Claude "this person is allowed to use Hiya's account." Hiya has a company account with Anthropic (the makers of Claude), and you'll generate your own key from within that shared account. Your Claude usage is billed to Hiya — you don't pay for anything extra.</p>
+      <p class="why-box-label">✦ Before you build anything — read this</p>
+      <p>At Hiya, which AI model you use depends on what data your tool will process. <strong>Claude (Anthropic) is for internal data only</strong> — things like meeting notes, internal documents, budget narratives, and drafts. <strong>Codex/OpenAI is required for anything that touches customer data or PII.</strong> Both run inside Cursor using the same workflow — you just select a different model. Many people end up using both: building and testing with Claude, then switching to an OpenAI model when the tool needs to process customer data. Get both keys now so you're not blocked later.</p>
+    </div>
+
+    <div class="tip">
+      <p class="tip-label">✦ A note on Cursor</p>
+      <p>This guide uses Cursor because it's the tool the guide's author uses and has been successfully adopted by others at Hiya. That said, if you already have a preferred IDE or are comfortable working in Terminal, both are valid alternatives — adapt these instructions for your own setup as needed.</p>
     </div>
 
     <div class="sub-section">
-      <h3 class="sub-section-title"><span>🔑</span> Get your personal key from the Claude Console</h3>
+      <h3 class="sub-section-title"><span>🔑</span> Key 1: Anthropic API key — for internal data</h3>
+      <p style="font-size:14px; color:var(--text-secondary); margin-bottom:20px; line-height:1.6;">This key connects Cursor to Claude. Use Claude-powered tools only for internal Hiya data — never for customer data or PII.</p>
       <div class="steps">
         <div class="step">
           <div class="step-dot step-dot-b"></div>
           <div class="step-body">
-            <strong>Go to the Anthropic Claude Console</strong>
-            <p>Open your browser and visit <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-dot step-dot-b"></div>
-          <div class="step-body">
-            <strong>Sign in through Hiya's Organization</strong>
-            <p>Click <strong>"Log in"</strong> and use your <strong>@hiya.com</strong> Google account. You should land inside Hiya's organization workspace — you'll see the Hiya name in the top-left corner.</p>
+            <strong>Go to the Anthropic Console</strong>
+            <p>Visit <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> and log in using your <strong>@hiya.com</strong> Google account. You should land inside Hiya's organization — you'll see the Hiya name in the top-left corner.</p>
             <div class="tip">
               <p class="tip-label">✦ Don't see Hiya's organization?</p>
-              <p>You haven't been added to the org yet. Ask whoever manages Hiya's AI tools to add your <strong>@hiya.com</strong> email, then try logging in again.</p>
+              <p>You haven't been added yet. Ask whoever manages Hiya's AI tools to add your <strong>@hiya.com</strong> email to the Anthropic org, then log in again.</p>
             </div>
           </div>
         </div>
@@ -702,17 +701,49 @@ Don't write anything yet. First, ask me any clarifying questions you need. Then 
           <div class="step-dot step-dot-b"></div>
           <div class="step-body">
             <strong>Create a new API key</strong>
-            <p>In the left sidebar, click <strong>"API Keys"</strong>, then <strong>"Create Key."</strong> Name it something recognizable like <em>your-name-cursor</em> (e.g., <em>alex-cursor</em>). Click <strong>Create API Key.</strong></p>
+            <p>In the left sidebar, click <strong>"API Keys"</strong> then <strong>"Create Key."</strong> Name it something recognizable like <em>your-name-cursor</em> (e.g., <em>alex-cursor</em>). Click <strong>Create API Key.</strong></p>
           </div>
         </div>
         <div class="step">
           <div class="step-dot step-dot-b"></div>
           <div class="step-body">
             <strong>Copy your key immediately</strong>
-            <p>Your key appears on screen — it starts with <code>sk-ant-api03-</code>. <strong>Copy it now</strong> and save it somewhere private like a 1Password note or Apple Notes. This is the only time the full key is shown.</p>
+            <p>Your key will appear on screen as a long string of letters and numbers. <strong>Copy it now</strong> and save it somewhere private — a 1Password note or Apple Notes works well. This is the only time the full key is shown.</p>
             <div class="warning">
               <p class="warning-label">⚠ Keep it private</p>
               <p>Never paste your key into Slack, email, or a shared doc. It's linked to Hiya's billing account. If you accidentally share it, delete it from the Console immediately and create a new one.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title"><span>🔑</span> Key 2: OpenAI API key — for customer data</h3>
+      <p style="font-size:14px; color:var(--text-secondary); margin-bottom:20px; line-height:1.6;">This key connects Cursor to OpenAI's models, including Codex. Under Hiya's Enterprise agreement, these models are approved for tools that process customer data or PII. Access requires an IT permissions request — start this now so you're not waiting when you need it.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-dot step-dot-b"></div>
+          <div class="step-body">
+            <strong>Request API access from IT</strong>
+            <p>Before you can generate an OpenAI API key, you need to be added to Hiya's OpenAI organization. Submit a request to IT asking to be added to the Hiya org on <strong>platform.openai.com</strong>. You'll receive an email invite once access is granted.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot step-dot-b"></div>
+          <div class="step-body">
+            <strong>Accept the invite and sign in</strong>
+            <p>Once you receive the invite, go to <a href="https://platform.openai.com" target="_blank">platform.openai.com</a> and log in using your <strong>@hiya.com</strong> Google account. If Google login gives you trouble, try logging in with your API key directly instead.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot step-dot-b"></div>
+          <div class="step-body">
+            <strong>Generate your API key</strong>
+            <p>In the left sidebar, find <strong>API Keys</strong> and click <strong>"Create new secret key."</strong> Name it something recognizable like <em>your-name-cursor</em>. Copy it immediately and save it somewhere private — it won't be shown again.</p>
+            <div class="warning">
+              <p class="warning-label">⚠ Keep it private</p>
+              <p>Same rule as the Anthropic key — never share it in Slack, email, or a shared doc. It's tied to Hiya's OpenAI billing account.</p>
             </div>
           </div>
         </div>
@@ -734,7 +765,7 @@ Don't write anything yet. First, ask me any clarifying questions you need. Then 
 
     <div class="why-box why-box-b">
       <p class="why-box-label">✦ Why Cursor?</p>
-      <p>Cursor is the workspace you'll use to talk to Claude and build things. Think of it as a place where you describe what you want — in plain English — and Claude builds it for you. You give the directions; Claude writes the code, creates the files, and runs everything. No programming knowledge required.</p>
+      <p>Cursor is the workspace where you'll describe what you want to build and let AI build it for you. Once your API keys are connected, you can switch between Claude and OpenAI models within the same chat window — no separate apps, no switching tools. You give the directions; the AI writes the code, creates the files, and runs everything.</p>
     </div>
 
     <div class="steps">
@@ -780,7 +811,7 @@ Don't write anything yet. First, ask me any clarifying questions you need. Then 
 
     <div class="why-box why-box-b">
       <p class="why-box-label">✦ Why Pro is required for building</p>
-      <p>The feature that lets Claude actually <em>build things</em> — creating files, running code, making changes autonomously — is called <strong>Agent mode</strong>. It only runs on Cursor Pro. Without it, you're limited to basic chat. Pro is $20/month and is not covered by Hiya by default. Reimbursement is possible but requires your manager's approval — check with them before subscribing.</p>
+      <p>The feature that lets AI actually <em>build things</em> — creating files, running code, making changes autonomously — is called <strong>Agent mode</strong>. It only runs on Cursor Pro. Without it, you're limited to basic chat. Pro is $20/month and is not covered by Hiya by default. Reimbursement is possible but requires your manager's approval — check with them before subscribing.</p>
     </div>
 
     <div class="steps">
@@ -808,9 +839,14 @@ Don't write anything yet. First, ask me any clarifying questions you need. Then 
       <div class="section-num section-num-b">B4</div>
       <div class="section-meta">
         <p class="section-label">Path B · Setup step 4 of 4</p>
-        <h2 class="section-title">Connect <em class="b">Claude</em> in Cursor</h2>
+        <h2 class="section-title">Connect your <em class="b">Models</em> in Cursor</h2>
       </div>
       <span class="section-badge badge-req-b">Required</span>
+    </div>
+
+    <div class="why-box why-box-b">
+      <p class="why-box-label">✦ One settings panel, two keys</p>
+      <p>You'll paste both API keys into Cursor's settings once. After that, switching between Claude and an OpenAI model is just a dropdown selection in the chat window — no re-configuration required.</p>
     </div>
 
     <div class="steps">
@@ -824,24 +860,42 @@ Don't write anything yet. First, ask me any clarifying questions you need. Then 
       <div class="step">
         <div class="step-dot step-dot-b"></div>
         <div class="step-body">
-          <strong>Go to Models and paste your key</strong>
-          <p>Click <strong>"Models"</strong> in the left sidebar. Scroll to the <strong>Anthropic</strong> section, paste your key into the <strong>"Anthropic API Key"</strong> field, and press <strong>Enter.</strong> Cursor will confirm it's working.</p>
+          <strong>Add your Anthropic key</strong>
+          <p>Click <strong>"Models"</strong> in the left sidebar. Scroll to the <strong>Anthropic</strong> section, paste your Anthropic API key into the field, and press <strong>Enter.</strong> Cursor will confirm it's working.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-dot step-dot-b"></div>
         <div class="step-body">
-          <strong>Open the chat panel and select Claude</strong>
-          <p>Press <code>Cmd + L</code> to open the AI chat panel. Click the model dropdown at the top and choose <strong>claude-sonnet-4-5</strong> (or the latest Claude Sonnet available).</p>
+          <strong>Add your OpenAI key</strong>
+          <p>In the same Models panel, scroll to the <strong>OpenAI</strong> section and paste your OpenAI API key. Press <strong>Enter</strong> to verify. Both providers will now appear as selectable models in your chat window.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-dot step-dot-b"></div>
         <div class="step-body">
-          <strong>Test it</strong>
-          <p>Type: <em>"Hi — I work in operations at a SaaS company. I want to build a simple tool to help with my work. What should we start with?"</em> If Claude responds, you're ready to build.</p>
+          <strong>Learn the model selector</strong>
+          <p>Press <code>Cmd + L</code> to open the chat panel. Look for the model selector — usually a dropdown near the bottom of the chat input area. This is where you switch between Claude and OpenAI models. Select a Claude model (look for "Sonnet" or "Opus") to confirm your Anthropic key is working, then switch to a Codex or GPT model to confirm your OpenAI key is working.</p>
         </div>
       </div>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title"><span>🔀</span> When to use which model</h3>
+      <ul class="use-cases">
+        <li>
+          <span class="use-case-label" style="background:var(--pa-light);color:var(--pa-text);">Claude</span>
+          <span>Use for building, testing, and any tool that processes <strong>internal Hiya data</strong> — documents, meeting notes, budget figures, internal communications. Claude is generally better at nuanced writing and reasoning tasks.</span>
+        </li>
+        <li>
+          <span class="use-case-label" style="background:var(--pb-light);color:var(--pb-text);">Codex / OpenAI</span>
+          <span>Switch to a Codex or GPT model whenever your tool needs to process <strong>customer data or PII</strong>. Hiya's Enterprise agreement with OpenAI covers this data — Anthropic's does not. Use the model selector dropdown in the chat input to switch.</span>
+        </li>
+        <li>
+          <span class="use-case-label label-both">Both</span>
+          <span>Many tools use both: <strong>build and iterate with Claude</strong> (no real data involved yet), then <strong>switch to an OpenAI model</strong> when you're ready to run the tool on actual customer records. Same tool, same Cursor window — just a different model selected.</span>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -859,7 +913,7 @@ Don't write anything yet. First, ask me any clarifying questions you need. Then 
 
     <div class="why-box why-box-b">
       <p class="why-box-label">✦ What you're building</p>
-      <p>A tool you can drop any document into — a contract, a meeting transcript, a long email chain — and get back a structured summary with key decisions, action items, and anything flagged for your attention. About 30 minutes. Once you've done it once, you know how to build almost anything else.</p>
+      <p>A tool you can drop any document into — a contract, a meeting transcript, a long email chain — and get back a structured summary with key decisions, action items, and anything flagged for your attention. About 30 minutes. Once you've done it once, you know how to build almost anything else. This exercise uses internal data only, so you'll build it with Claude.</p>
     </div>
 
     <div class="sub-section">
@@ -884,7 +938,7 @@ Don't write anything yet. First, ask me any clarifying questions you need. Then 
 
     <div class="sub-section">
       <h3 class="sub-section-title"><span>🤖</span> Step 2: Tell Claude what to build</h3>
-      <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px; line-height:1.6;">Press <code>Cmd + L</code> to open the chat panel. Make sure you're in <strong>Agent mode</strong> — look for the mode selector at the top and switch to <strong>Agent</strong> if needed. Then paste this prompt:</p>
+      <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px; line-height:1.6;">Press <code>Cmd + L</code> to open the chat panel. Make sure you're in <strong>Agent mode</strong> — look for the mode selector and switch to <strong>Agent</strong> if needed. Select a <strong>Claude model</strong> from the model selector dropdown. Then paste this prompt:</p>
       <div class="prompt-example">
         <span class="prompt-tag prompt-tag-b">Your first prompt to Claude</span>
         <div class="prompt-text">I want to build a simple document summarizer tool. Here's what it should do:
@@ -908,22 +962,22 @@ Please build this as a simple tool I can run from this folder. Make it easy to u
         <div class="step">
           <div class="step-dot step-dot-b"></div>
           <div class="step-body">
-            <strong>Let Claude build</strong>
-            <p>Watch Agent mode work — Claude creates files in your folder, writes the code, and explains each step. Files appear in the left sidebar as it goes. Usually takes 1–2 minutes.</p>
+            <strong>Let the AI build</strong>
+            <p>Watch Agent mode work — it creates files in your folder, writes the code, and explains each step. Files appear in the left sidebar as it goes. Usually takes 1–2 minutes.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-dot step-dot-b"></div>
           <div class="step-body">
-            <strong>Follow Claude's run instructions</strong>
+            <strong>Follow the run instructions</strong>
             <p>Claude will tell you exactly how to run the tool. If any step is confusing, just ask: <em>"Can you explain that more simply?"</em></p>
           </div>
         </div>
         <div class="step">
           <div class="step-dot step-dot-b"></div>
           <div class="step-body">
-            <strong>Test it with real content and refine</strong>
-            <p>Paste in something from your actual work. If anything's off, tell Claude directly: <em>"The action items section isn't picking up names — can you fix that?"</em> Keep iterating until it works the way you want.</p>
+            <strong>Test it with internal content and refine</strong>
+            <p>Paste in something from your actual work — internal documents only for now. If anything's off, tell Claude directly: <em>"The action items section isn't picking up names — can you fix that?"</em> Keep iterating until it works the way you want.</p>
           </div>
         </div>
       </div>
@@ -931,11 +985,12 @@ Please build this as a simple tool I can run from this folder. Make it easy to u
 
     <div class="sub-section">
       <h3 class="sub-section-title"><span>🚀</span> What to build next</h3>
+      <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px; line-height:1.6;">The same pattern applies to everything: describe what you want, let the AI build it, test and refine. For anything that will process customer data, remember to switch the model selector to a Codex or GPT model before running it on real customer records.</p>
       <ul class="use-cases">
-        <li><span class="use-case-label label-finance">Finance</span><span><strong>Budget variance explainer</strong> — paste in a spreadsheet export and get a plain-English narrative explaining the variances, ready for a leadership update.</span></li>
-        <li><span class="use-case-label label-gtm">GTM</span><span><strong>Email sequence generator</strong> — takes a target account, a product use case, and a contact name and drafts a 3-email outbound sequence.</span></li>
-        <li><span class="use-case-label label-both">Both</span><span><strong>Meeting prep briefer</strong> — paste in a calendar event, attendee names, and context; get talking points and likely questions.</span></li>
-        <li><span class="use-case-label label-both">Both</span><span><strong>Weekly update formatter</strong> — paste in your week's notes and get a structured status update in your team's format.</span></li>
+        <li><span class="use-case-label label-finance">Finance</span><span><strong>Budget variance explainer</strong> — paste in a spreadsheet export and get a plain-English narrative explaining the variances, ready for a leadership update. (Internal data — use Claude.)</span></li>
+        <li><span class="use-case-label label-gtm">GTM</span><span><strong>Customer email summarizer</strong> — summarize inbound customer emails and extract action items. (Customer data — switch to a Codex or GPT model before running on real emails.)</span></li>
+        <li><span class="use-case-label label-both">Both</span><span><strong>Meeting prep briefer</strong> — paste in a calendar event, attendee names, and context; get talking points and likely questions. (Internal data — use Claude.)</span></li>
+        <li><span class="use-case-label label-gtm">GTM</span><span><strong>CRM note formatter</strong> — turn rough call notes into structured CRM entries. (Customer data — switch to a Codex or GPT model before running on real customer records.)</span></li>
       </ul>
     </div>
   </section>

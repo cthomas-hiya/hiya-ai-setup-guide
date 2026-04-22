@@ -230,6 +230,20 @@
     .why-box-neutral .why-box-label { color: var(--text-secondary); }
     .why-box-neutral p { color: var(--text-secondary); }
 
+    /* ── PROSE EMPHASIS ── */
+    /* strong in callouts matches the callout's color family, darker than body text */
+    .why-box-a p strong { color: var(--pa); }
+    .why-box-b p strong { color: var(--pb-dark); }
+    .why-box-neutral p strong { color: var(--text-primary); }
+    .tip p strong { color: #5C3900; }
+    .warning p strong { color: #7A1015; }
+    .info p strong { color: var(--pb-dark); }
+    /* strong in neutral prose contexts (lists, sub-sections, tips cards) */
+    .use-cases li strong,
+    .checklist li strong,
+    .tips-card-body p strong,
+    .sub-section > p strong { color: var(--text-primary); }
+
     /* ── STEPS ── */
     .steps { counter-reset: step; }
     .step { display: flex; gap: 20px; margin-bottom: 24px; position: relative; }
@@ -247,7 +261,8 @@
     .step-dot-a { background: var(--pa); box-shadow: 0 2px 8px rgba(106,68,185,0.30); }
     .step-dot-b { background: var(--pb); box-shadow: 0 2px 8px rgba(42,167,201,0.28); }
     .step-body { flex: 1; padding-top: 8px; }
-    .step-body strong { display: block; font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+    .step-body > strong:first-child { display: block; font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+    .step-body p strong, .step-body ul strong { display: inline; font-size: inherit; color: var(--text-primary); }
     .step-body p, .step-body ul { font-size: 14.5px; color: var(--text-secondary); line-height: 1.65; }
     .step-body ul { padding-left: 18px; margin-top: 6px; }
     .step-body ul li { margin-bottom: 4px; }
@@ -470,7 +485,7 @@
         <div class="step-dot step-dot-a"></div>
         <div class="step-body">
           <strong>Open ChatGPT and find Projects</strong>
-          <p>Go to <a href="https://chatgpt.com" target="_blank">chatgpt.com</a> and log in with your Hiya account. In the left sidebar, look for <strong>Projects</strong> and click <strong>"New Project."</strong> If you don't see it, make sure you're logged into your work account — Hiya's Enterprise plan unlocks Projects for everyone.</p>
+          <p>Go to <a href="https://chatgpt.com" target="_blank">chatgpt.com</a> and log in with your Hiya account. In the left sidebar, look for <strong>Projects</strong> and click <strong>"New Project."</strong> If you don't see it, make sure you're logged in with your Hiya work account — Hiya's Enterprise plan unlocks Projects for everyone.</p>
         </div>
       </div>
       <div class="step">
@@ -483,8 +498,19 @@
       <div class="step">
         <div class="step-dot step-dot-a"></div>
         <div class="step-body">
-          <strong>Find the Custom Instructions field</strong>
-          <p>Inside your Project, look for a <strong>Custom Instructions</strong> or <strong>Project Instructions</strong> field. Leave it blank for now — you'll fill it in during the next section.</p>
+          <strong>Set the Memory option</strong>
+          <p>Before clicking <strong>Create</strong>, click the <strong>gear icon</strong> inside the creation dialog to reveal the Memory setting. You'll see two options — choose <strong>Project-only</strong>. This keeps your project's context self-contained, so the AI's knowledge and memory for this project stays focused on your work rather than pulling in context from unrelated conversations. <strong>This setting cannot be changed after the project is created.</strong></p>
+          <div class="tip">
+            <p class="tip-label">✦ What does Project-only mean?</p>
+            <p><strong>Default</strong> allows the project to share memory with your other ChatGPT chats. <strong>Project-only</strong> keeps the project's memory isolated — what happens in this project stays in this project. For a focused work tool, Project-only is the right choice.</p>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot step-dot-a"></div>
+        <div class="step-body">
+          <strong>Create the project</strong>
+          <p>Click <strong>Create.</strong> You'll land inside your new project. You'll add Instructions and sources in the next two sections — no need to do anything else here yet.</p>
         </div>
       </div>
     </div>
@@ -502,7 +528,7 @@
       <div class="section-num section-num-a">A2</div>
       <div class="section-meta">
         <p class="section-label">Path A · Setup step 2 of 3</p>
-        <h2 class="section-title">Write your <em class="a">System Prompt</em></h2>
+        <h2 class="section-title">Write your <em class="a">Instructions</em></h2>
       </div>
       <span class="section-badge badge-req-a">Required</span>
     </div>
@@ -512,10 +538,10 @@
       <p>A system prompt is the standing brief you give the AI before every conversation — your role, your context, your communication style, your expectations. It transforms a generic chatbot into something that feels like a knowledgeable colleague who already knows your work. This is what most people never set up — and the reason they still feel like they're getting generic output.</p>
     </div>
 
-    <p style="font-size:14.5px; color:var(--text-secondary); margin-bottom:20px; line-height:1.65;">Copy the template below into your Project's Custom Instructions field and fill in the italicized parts. The more specific you are, the better it performs.</p>
+    <p style="font-size:14.5px; color:var(--text-secondary); margin-bottom:20px; line-height:1.65;">To add Instructions, open your project, click the <strong>⋯</strong> (three-dot) menu in the top-right corner, and select <strong>Project settings.</strong> You'll see an <strong>Instructions</strong> field — this is where you paste the template below. Fill in the italicized parts as specifically as you can; the more detail you give, the better the AI performs.</p>
 
     <div class="system-prompt-builder">
-      <p class="system-prompt-builder-label">📋 System prompt template — copy and customize</p>
+      <p class="system-prompt-builder-label">📋 Instructions template — copy and customize</p>
 
       <div class="system-prompt-block">
         <p class="system-prompt-block-label">Your role and context</p>
@@ -556,8 +582,8 @@ When I share a document for review or summarization:
     </div>
 
     <div class="tip">
-      <p class="tip-label">✦ Your system prompt is a living document</p>
-      <p>Your first version won't be perfect — that's expected. Every time the output misses the mark, update the instructions to address it. After a few weeks of real use, you'll have something highly tuned. You can also ask the AI to help you improve the prompt itself: paste it in and say <em>"What's missing from this that would help you write better on my behalf?"</em></p>
+      <p class="tip-label">✦ Your Instructions are a living document</p>
+      <p>Your first version won't be perfect — that's expected. Every time the output misses the mark, go back to Project settings and update the Instructions field. After a few weeks of real use, you'll have something highly tuned. You can also ask the AI to help you improve it: paste your current instructions into the chat and say <em>"What's missing from this that would help you write better on my behalf?"</em></p>
     </div>
   </section>
 
@@ -578,7 +604,7 @@ When I share a document for review or summarization:
       <p>Files attached to a Project are available in every conversation within it — the AI can reference them without you re-uploading each time. A well-stocked Project is like giving a new team member a thorough onboarding packet: they stop asking basic questions and start contributing from day one.</p>
     </div>
 
-    <p style="font-size:14.5px; color:var(--text-secondary); margin-bottom:16px; line-height:1.65;">Inside your Project, look for an option to add files or paste content. Good candidates:</p>
+    <p style="font-size:14.5px; color:var(--text-secondary); margin-bottom:16px; line-height:1.65;">Inside your project, click the <strong>Sources</strong> tab, then click <strong>Add.</strong> You can upload files directly, link a Google Drive folder, or connect one of Hiya's approved apps. Good candidates for sources:</p>
 
     <ul class="use-cases">
       <li><span class="use-case-label label-both">All teams</span><span>Your team's standard communication templates or preferred formats — so output is always structured the way your team expects.</span></li>
@@ -587,8 +613,13 @@ When I share a document for review or summarization:
       <li><span class="use-case-label label-both">All teams</span><span>A short "about the team" note: key stakeholders, how decisions get made, what's currently being prioritized. The context you'd give a new hire on day one.</span></li>
     </ul>
 
+    <div class="tip">
+      <p class="tip-label">✦ Hiya's approved app integrations</p>
+      <p>When you click Add in the Sources tab, look for the <strong>"For Hiya, Inc"</strong> tab to see apps Hiya has already approved for use as sources. These include Gmail, Google Drive, Google Calendar, Google Contacts, GitHub, Slack, HubSpot, Figma, Notion, ZoomInfo, and others. Connecting an app lets ChatGPT pull live context from it — for example, referencing recent emails or calendar events without you needing to paste them in manually.</p>
+    </div>
+
     <div class="warning">
-      <p class="warning-label">⚠ Watch what you upload</p>
+      <p class="warning-label">⚠ Watch what you connect</p>
       <p>Don't attach documents containing personal employee data, customer PII, or anything marked confidential beyond your access level. When in doubt, check with your manager first.</p>
     </div>
   </section>
